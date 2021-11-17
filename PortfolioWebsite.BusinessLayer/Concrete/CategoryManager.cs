@@ -1,7 +1,11 @@
 ﻿using PortfolioWebsite.BusinessLayer.Abstract;
 using PortfolioWebsite.DataAccessLayer.Abstract;
 using PortfolioWebsite.EntityLayer.Concrete;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace PortfolioWebsite.BusinessLayer.Concrete
 {
@@ -9,34 +13,37 @@ namespace PortfolioWebsite.BusinessLayer.Concrete
     {
         ICategoryDAL _categoryDal;
 
-
         public CategoryManager(ICategoryDAL categoryDal)
         {
             _categoryDal = categoryDal;
         }
-        public void Add(Category category)
-        {
-            _categoryDal.Add(category);
-        }
 
-        public void Delete(Category category)
-        {
-            _categoryDal.Delete(category);
-        }
 
-        public List<Category> GetAll()
+        public List<Category> TGetAll()
         {
             return _categoryDal.GetAll();
         }
 
-        public Category GetById(int id)
+        public Category TGetById(int id)
         {
             return _categoryDal.GetById(id);
         }
 
-        public void Update(Category category)
+        public void TAdd(Category entity)
         {
-            _categoryDal.Update(category);
+             _categoryDal.Add(entity);
         }
+
+        public void TDelete(Category entity)
+        {
+            _categoryDal.Delete(entity);
+        }
+
+        public void TUpdate(Category entity)
+        {
+            _categoryDal.Update(entity);
+        }
+
+        
     }
 }

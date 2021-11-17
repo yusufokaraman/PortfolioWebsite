@@ -9,12 +9,9 @@ namespace PortfolioWebsite.BusinessLayer.Abstract
 {
     public interface IBlogService
     {
-        void Add(Blog blog);
-        void Delete(Blog blog);
-        void Update(Blog blog);
-        List<Blog> GetAll();
-        Blog GetById(int id);
+        List<Blog> GetLast3Blog();
         List<Blog> GetBlogByID(int id);
         List<Blog> GetBlogsListWithCategory();
+        List<Blog> GetBlogsListWithWriter(int id);
     }
 }

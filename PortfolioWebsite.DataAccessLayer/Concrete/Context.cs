@@ -12,7 +12,7 @@ namespace PortfolioWebsite.DataAccessLayer.Concrete
     {
         protected override  void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=(localdb)\\Karaman; database=PortfolioWebsiteDb; integrated security=true;") ;
+            optionsBuilder.UseSqlServer("server=(localdb)\\Karaman; database=PortfolioDb; integrated security=true;") ;
         }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Blog> Blogs { get; set; }
@@ -20,5 +20,7 @@ namespace PortfolioWebsite.DataAccessLayer.Concrete
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Contact> Contacts { get; set; }
         public DbSet<Writer> Writers { get; set; }
+        public DbSet<NewsLetter> NewsLetters { get; set; }
+        public DbSet<BlogRating> BlogRatings { get; set; }
     }
 }

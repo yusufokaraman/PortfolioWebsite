@@ -77,11 +77,37 @@ namespace PortfolioWebsite.DataAccessLayer.Migrations
                     b.Property<int>("CategoryId")
                         .HasColumnType("int");
 
+                    b.Property<int>("WriterId")
+                        .HasColumnType("int");
+
                     b.HasKey("BlogId");
 
                     b.HasIndex("CategoryId");
 
+                    b.HasIndex("WriterId");
+
                     b.ToTable("Blogs");
+                });
+
+            modelBuilder.Entity("PortfolioWebsite.EntityLayer.Concrete.BlogRating", b =>
+                {
+                    b.Property<int>("BlogRatingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("BlogId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlogRatingCount")
+                        .HasColumnType("int");
+
+                    b.Property<int>("BlogTotalScore")
+                        .HasColumnType("int");
+
+                    b.HasKey("BlogRatingId");
+
+                    b.ToTable("BlogRatings");
                 });
 
             modelBuilder.Entity("PortfolioWebsite.EntityLayer.Concrete.Category", b =>
@@ -144,9 +170,6 @@ namespace PortfolioWebsite.DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("COntactStatus")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime>("ContactDate")
                         .HasColumnType("datetime2");
 
@@ -155,6 +178,9 @@ namespace PortfolioWebsite.DataAccessLayer.Migrations
 
                     b.Property<string>("ContactMessage")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("ContactStatus")
+                        .HasColumnType("bit");
 
                     b.Property<string>("ContactSubject")
                         .HasColumnType("nvarchar(max)");
@@ -167,6 +193,24 @@ namespace PortfolioWebsite.DataAccessLayer.Migrations
                     b.ToTable("Contacts");
                 });
 
+            modelBuilder.Entity("PortfolioWebsite.EntityLayer.Concrete.NewsLetter", b =>
+                {
+                    b.Property<int>("MailID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Mail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("MailStatus")
+                        .HasColumnType("bit");
+
+                    b.HasKey("MailID");
+
+                    b.ToTable("NewsLetters");
+                });
+
             modelBuilder.Entity("PortfolioWebsite.EntityLayer.Concrete.Writer", b =>
                 {
                     b.Property<int>("WriterId")
@@ -174,7 +218,13 @@ namespace PortfolioWebsite.DataAccessLayer.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("Gender")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("WriterAbout")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WriterCity")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("WriterImage")
@@ -189,8 +239,11 @@ namespace PortfolioWebsite.DataAccessLayer.Migrations
                     b.Property<string>("WriterPassword")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("WriterStatus")
+                    b.Property<string>("WriterPhone")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("WriterStatus")
+                        .HasColumnType("bit");
 
                     b.HasKey("WriterId");
 
@@ -205,7 +258,15 @@ namespace PortfolioWebsite.DataAccessLayer.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PortfolioWebsite.EntityLayer.Concrete.Writer", "Writer")
+                        .WithMany("Blogs")
+                        .HasForeignKey("WriterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Category");
+
+                    b.Navigation("Writer");
                 });
 
             modelBuilder.Entity("PortfolioWebsite.EntityLayer.Concrete.Comment", b =>
@@ -225,6 +286,11 @@ namespace PortfolioWebsite.DataAccessLayer.Migrations
                 });
 
             modelBuilder.Entity("PortfolioWebsite.EntityLayer.Concrete.Category", b =>
+                {
+                    b.Navigation("Blogs");
+                });
+
+            modelBuilder.Entity("PortfolioWebsite.EntityLayer.Concrete.Writer", b =>
                 {
                     b.Navigation("Blogs");
                 });

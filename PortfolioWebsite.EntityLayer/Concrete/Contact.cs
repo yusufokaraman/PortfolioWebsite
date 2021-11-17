@@ -16,7 +16,7 @@ namespace PortfolioWebsite.EntityLayer.Concrete
         public string ContactSubject { get; set; }
         public string ContactMessage { get; set; }
         public DateTime ContactDate { get; set; }
-        public string COntactStatus { get; set; }
+        public bool ContactStatus { get; set; }
         
     }
 }

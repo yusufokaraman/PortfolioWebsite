@@ -1,13 +1,14 @@
 ﻿using PortfolioWebsite.BusinessLayer.Abstract;
 using PortfolioWebsite.DataAccessLayer.Abstract;
 using PortfolioWebsite.EntityLayer.Concrete;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PortfolioWebsite.BusinessLayer.Concrete
+namespace BusinessLayer.Concrete
 {
     public class BlogManager : IBlogService
     {
@@ -17,19 +18,15 @@ namespace PortfolioWebsite.BusinessLayer.Concrete
         {
             _blogDal = blogDal;
         }
-        public void Add(Blog blog)
-        {
-            throw new NotImplementedException();
-        }
 
-        public void Delete(Blog blog)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Blog> GetAll()
+        public List<Blog> TGetAll()
         {
             return _blogDal.GetAll();
+        }
+
+        public List<Blog> GetLast3Blog()
+        {
+            return _blogDal.GetAll().TakeLast(3).ToList();
         }
 
         public List<Blog> GetBlogByID(int id)
@@ -42,14 +39,29 @@ namespace PortfolioWebsite.BusinessLayer.Concrete
             return _blogDal.GetListCategory();
         }
 
-        public Blog GetById(int id)
+        public List<Blog> GetBlogsListWithWriter(int id)
         {
-            throw new NotImplementedException();
+            return _blogDal.GetListWithCategoryByWriter(id);
         }
 
-        public void Update(Blog blog)
+        public Blog TGetById(int id)
         {
-            throw new NotImplementedException();
+            return _blogDal.GetById(id);
+        }
+
+        public void TAdd(Blog entity)
+        {
+            _blogDal.Add(entity);
+        }
+
+        public void TDelete(Blog entity)
+        {
+            _blogDal.Delete(entity);
+        }
+
+        public void TUpdate(Blog entity)
+        {
+            _blogDal.Update(entity);
         }
     }
 }
